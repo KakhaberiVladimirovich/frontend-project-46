@@ -36,7 +36,7 @@ const getDiffInformation = (obj1, obj2) => {
       };
     }
     return {
-      type: 'unchandeg',
+      type: 'unchanged',
       key,
       value1,
     };
@@ -51,7 +51,7 @@ const genDiff = (getDiffInformation) => {
     switch (typeDiff) {
       case 'deleted':
         return ` - ${obj.key} : ${obj.value1}`;
-      case 'unchandeg':
+      case 'unchanged':
         return `   ${obj.key} : ${obj.value1}`;
       case 'changed':
         return ` - ${obj.key} : ${obj.value1} \n + ${obj.key} : ${obj.value2}`;
