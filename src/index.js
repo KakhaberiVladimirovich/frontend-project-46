@@ -45,8 +45,8 @@ const getDiffInformation = (obj1, obj2) => {
   return getNewObjekt;
 };
 
-const genDiff = (getDiffInformation) => {
-  const getStringValue = getDiffInformation.map((obj) => {
+const genDiff = (newgetDiffInformation) => {
+  const getStringValue = newgetDiffInformation.map((obj) => {
     const typeDiff = obj.type;
     switch (typeDiff) {
       case 'deleted':
@@ -65,11 +65,11 @@ const genDiff = (getDiffInformation) => {
 };
 
 export default (filepath1, filepath2) => {
-  const readFile = (path) => readFileSync(path, 'utf-8');
+  const readFile = (newpath) => readFileSync(newpath, 'utf-8');
   const getAbsolutePath = (filepath) => path.resolve(cwd(), filepath);
   const dateParse = (file) => JSON.parse(file);
 
-  const file = (file) => readFile(getAbsolutePath(file));
+  const file = (newfile) => readFile(getAbsolutePath(newfile));
 
   const date1 = dateParse(file(filepath1));
   const date2 = dateParse(file(filepath2));
