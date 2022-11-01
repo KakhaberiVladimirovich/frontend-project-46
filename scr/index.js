@@ -3,7 +3,7 @@ import _ from 'lodash';
 import path from 'path';
 import { cwd } from 'node:process';
 
-const getDiffInfo = (obj1, obj2) => {
+const getDiffInformation = (obj1, obj2) => {
   const keys1 = Object.keys(obj1);
   const keys2 = Object.keys(obj2);
   const union = _.union(keys1, keys2);
@@ -45,18 +45,18 @@ const getDiffInfo = (obj1, obj2) => {
   return getNewObjekt;
 };
 
-const genDiff = (getDiffInfo) => {
-  const getStringValue = getDiffInfo.map((diff) => {
-    const typeDiff = diff.type;
+const genDiff = (getDiffInformation) => {
+  const getStringValue = getDiffInformation.map((obj) => {
+    const typeDiff = obj.type;
     switch (typeDiff) {
       case 'deleted':
-        return ` - ${diff.key} : ${diff.value1}`;
+        return ` - ${obj.key} : ${obj.value1}`;
       case 'unchandeg':
-        return `   ${diff.key} : ${diff.value1}`;
+        return `   ${obj.key} : ${obj.value1}`;
       case 'changed':
-        return ` - ${diff.key} : ${diff.value1} \n + ${diff.key} : ${diff.value2}`;
+        return ` - ${obj.key} : ${obj.value1} \n + ${obj.key} : ${obj.value2}`;
       case 'added':
-        return ` + ${diff.key} : ${diff.value2}`;
+        return ` + ${obj.key} : ${obj.value2}`;
       default:
         return null;
     }
@@ -74,5 +74,5 @@ export default (filepath1, filepath2) => {
   const date1 = dateParse(file(filepath1));
   const date2 = dateParse(file(filepath2));
 
-  return genDiff(getDiffInfo(date1, date2));
+  return genDiff(getDiffInformation(date1, date2));
 };
