@@ -73,6 +73,5 @@ export default (filepath1, filepath2) => {
 
   const date1 = dateParse(file(filepath1));
   const date2 = dateParse(file(filepath2));
-
   return genDiff(getDiffInformation(date1, date2));
 };
