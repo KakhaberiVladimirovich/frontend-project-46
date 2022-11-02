@@ -9,7 +9,7 @@ const getDiffInformation = (obj1, obj2) => {
   const union = _.union(keys1, keys2);
   const sortUnion = _.sortBy(union);
 
-  const getNewObjekt = sortUnion.map((key) => {
+  const getNewObj = sortUnion.map((key) => {
     const value1 = obj1[key];
     const value2 = obj2[key];
 
@@ -42,7 +42,7 @@ const getDiffInformation = (obj1, obj2) => {
     };
   });
 
-  return getNewObjekt;
+  return getNewObj;
 };
 
 const genDiff = (getNewDiffInformation) => {
