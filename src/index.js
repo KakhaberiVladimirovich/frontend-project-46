@@ -45,18 +45,18 @@ const getDiffInformation = (obj1, obj2) => {
   return getNewObjekt;
 };
 
-const genDiff = (newgetDiffInformation) => {
-  const getStringValue = newgetDiffInformation.map((obj) => {
+const genDiff = (getNewDiffInformation) => {
+  const getStringValue = getNewDiffInformation.map((obj) => {
     const typeDiff = obj.type;
     switch (typeDiff) {
       case 'deleted':
-        return ` - ${obj.key} : ${obj.value1}`;
+        return `- ${obj.key}: ${obj.value1}`;
       case 'unchanged':
-        return `   ${obj.key} : ${obj.value1}`;
+        return `  ${obj.key}: ${obj.value1}`;
       case 'changed':
-        return ` - ${obj.key} : ${obj.value1} \n + ${obj.key} : ${obj.value2}`;
+        return `- ${obj.key}: ${obj.value1}\n+ ${obj.key}: ${obj.value2}`;
       case 'added':
-        return ` + ${obj.key} : ${obj.value2}`;
+        return `+ ${obj.key}: ${obj.value2}`;
       default:
         return null;
     }
@@ -65,11 +65,11 @@ const genDiff = (newgetDiffInformation) => {
 };
 
 export default (filepath1, filepath2) => {
-  const readFile = (newpath) => readFileSync(newpath, 'utf-8');
+  const readFile = (newPath) => readFileSync(newPath, 'utf-8');
   const getAbsolutePath = (filepath) => path.resolve(cwd(), filepath);
   const dateParse = (file) => JSON.parse(file);
 
-  const file = (newfile) => readFile(getAbsolutePath(newfile));
+  const file = (newFile) => readFile(getAbsolutePath(newFile));
 
   const date1 = dateParse(file(filepath1));
   const date2 = dateParse(file(filepath2));
