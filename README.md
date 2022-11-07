@@ -4,4 +4,4 @@
 <a href="[![Test Coverage](https://api.codeclimate.com/v1/badges/0480a47f4e1b814dd51b/test_coverage)](https://codeclimate.com/github/Kachabery/frontend-project-46/test_coverage)"><img src="https://api.codeclimate.com/v1/badges/0480a47f4e1b814dd51b/test_coverage" /></a>
 
 
-<a href="https://asciinema.org/a/eXkrXLQSSD5n3bq55JL9Aakkj?autoplay=1"><img src="https://asciinema.org/a/eXkrXLQSSD5n3bq55JL9Aakkj.png" width="500"/></a>
+<a href="https://asciinema.org/a/CkVRsBCo9ZOernSa7hDYSXomX"><img src="https://asciinema.org/a/CkVRsBCo9ZOernSa7hDYSXomX" width="500"/></a>

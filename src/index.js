@@ -3,6 +3,14 @@ import _ from 'lodash';
 import path from 'path';
 import { cwd } from 'node:process';
 
+import parse from './parses.js';
+
+const readFile = (newPath) => readFileSync(newPath, 'utf-8');
+const getAbsolutePath = (filepath) => path.resolve(cwd(), filepath);
+const file = (newFile) => readFile(getAbsolutePath(newFile));
+
+const getData = (filepath) => parse(file(filepath));
+
 const getDiffInformation = (obj1, obj2) => {
   const keys1 = Object.keys(obj1);
   const keys2 = Object.keys(obj2);
@@ -65,13 +73,7 @@ const genDiff = (getNewDiffInformation) => {
 };
 
 export default (filepath1, filepath2) => {
-  const readFile = (newPath) => readFileSync(newPath, 'utf-8');
-  const getAbsolutePath = (filepath) => path.resolve(cwd(), filepath);
-  const dateParse = (file) => JSON.parse(file);
-
-  const file = (newFile) => readFile(getAbsolutePath(newFile));
-
-  const date1 = dateParse(file(filepath1));
-  const date2 = dateParse(file(filepath2));
+  const date1 = getData(filepath1);
+  const date2 = getData(filepath2);
   return genDiff(getDiffInformation(date1, date2));
 };
