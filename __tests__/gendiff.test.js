@@ -11,7 +11,7 @@ const __dirname = dirname(__filename);
 const getFixturePath = (filename) => resolve(__dirname, '..', '__fixtures__', filename);
 const readFile = (filename) => readFileSync(getFixturePath(filename), 'utf-8');
 
-const stylish = readFile('Stylish.txt');
+const stylish = readFile('stylish.txt');
 const formatsFiles = ['json', 'yaml', 'yml'];
 test.each(formatsFiles)('diff formats of files (.json .yaml .yml)', (extension) => {
   const fileName1 = `${process.cwd()}/__fixtures__/file1.${extension}`;
