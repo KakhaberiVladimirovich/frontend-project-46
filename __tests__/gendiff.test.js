@@ -1,16 +1,22 @@
 import { test, expect } from '@jest/globals';
+import { fileURLToPath } from 'url';
+import { readFileSync } from 'fs';
+import { dirname, resolve } from 'path';
+
 import genDiff from '../src/index.js';
-import { getFixturePath, result } from '../src/file.js';
 
-const file1 = getFixturePath('file1.json');
-const file2 = getFixturePath('file2.json');
-const file3 = getFixturePath('file1.yaml');
-const file4 = getFixturePath('file2.yaml');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
-test('difference test 1', () => {
-  expect(genDiff(file1, file2)).toEqual(result);
-});
+const getFixturePath = (filename) => resolve(__dirname, '..', '__fixtures__', filename);
+const readFile = (filename) => readFileSync(getFixturePath(filename), 'utf-8');
 
-test('difference test 2', () => {
-  expect(genDiff(file3, file4)).toEqual(result);
+const stylish = readFile('Stylish.txt');
+const formatsFiles = ['json', 'yaml', 'yml'];
+test.each(formatsFiles)('diff formats of files (.json .yaml .yml)', (extension) => {
+  const fileName1 = `${process.cwd()}/__fixtures__/file1.${extension}`;
+  const fileName2 = `${process.cwd()}/__fixtures__/file2.${extension}`;
+
+  expect(genDiff(fileName1, fileName2, 'stylish')).toEqual(stylish);
+  expect(genDiff(fileName1, fileName2)).toEqual(stylish);
 });
