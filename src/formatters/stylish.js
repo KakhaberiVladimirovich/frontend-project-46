@@ -1,57 +1,47 @@
 import _ from 'lodash';
 
-const createIndent = (level) => {
-  const replacer = '  ';
-  const spacesCount = 2;
-  const indentSize = level * spacesCount;
+const replacer = '  ';
+const spacesCount = 2;
 
-  const indents = {
-    openBracket: replacer.repeat(indentSize - 1),
-    closeBracket: replacer.repeat(indentSize - spacesCount),
-  };
-
-  return indents;
-};
+const openBracket = (depth) => replacer.repeat(depth * spacesCount - 1);
+const closeBracket = (depth) => replacer.repeat(depth * spacesCount - spacesCount);
 
 const stringify = (val, depth) => {
   if (!_.isObject(val)) {
     return String(val);
   }
-  const indents = createIndent(depth);
 
-  const lines = Object.entries(val).map(([key, value]) => {
+  const result = Object.entries(val).map(([key, value]) => {
     if (!_.isObject(value)) {
-      return `${indents.openBracket}  ${key}: ${value}`;
+      return `${openBracket(depth)}  ${key}: ${value}`;
     }
 
-    return `${indents.openBracket}  ${key}: ${stringify(value, depth + 1)}`;
+    return `${openBracket(depth)}  ${key}: ${stringify(value, depth + 1)}`;
   });
 
-  return ['{', ...lines, `${indents.closeBracket}}`].join('\n');
+  return ['{', ...result, `${closeBracket(depth)}}`].join('\n');
 };
 
-const stylish = (tree, depth = 1) => {
-  const indents = createIndent(depth);
-
+const formStylish = (tree, depth = 1) => {
   const items = tree.map((item) => {
-    const makeValue = stringify(item.value, depth + 1);
+    const value = stringify(item.value, depth + 1);
 
     switch (item.type) {
       case 'added':
-        return `${indents.openBracket}+ ${item.name}: ${makeValue}`;
+        return `${openBracket(depth)}+ ${item.name}: ${value}`;
       case 'deleted':
-        return `${indents.openBracket}- ${item.name}: ${makeValue}`;
-      case 'changed':
-        return `${indents.openBracket}- ${item.name}: ${stringify(item.value1, depth + 1)}\n${indents.openBracket}+ ${item.name}: ${stringify(item.value2, depth + 1)}`;
+        return `${openBracket(depth)}- ${item.name}: ${value}`;
       case 'unchanged':
-        return `${indents.openBracket}  ${item.name}: ${makeValue}`;
+        return `${openBracket(depth)}  ${item.name}: ${value}`;
+      case 'changed':
+        return `${openBracket(depth)}- ${item.name}: ${stringify(item.value1, depth + 1)}\n${openBracket(depth)}+ ${item.name}: ${stringify(item.value2, depth + 1)}`;
       case 'nested':
-        return `${indents.openBracket}  ${item.name}: ${stylish(item.children, depth + 1)}`;
+        return `${openBracket(depth)}  ${item.name}: ${formStylish(item.children, depth + 1)}`;
       default:
         throw new Error('Unknown type.');
     }
   });
-  return ['{', ...items, `${indents.closeBracket}}`].join('\n');
+  return ['{', ...items, `${closeBracket(depth)}}`].join('\n');
 };
 
-export default stylish;
+export default formStylish;

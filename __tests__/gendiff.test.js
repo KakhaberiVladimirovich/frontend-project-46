@@ -12,11 +12,15 @@ const getFixturePath = (filename) => resolve(__dirname, '..', '__fixtures__', fi
 const readFile = (filename) => readFileSync(getFixturePath(filename), 'utf-8');
 
 const stylish = readFile('stylish.txt');
-const formatsFiles = ['json', 'yaml', 'yml'];
-test.each(formatsFiles)('diff formats of files (.json .yaml .yml)', (extension) => {
+const plain = readFile('plain.txt');
+
+const format = ['json', 'yaml', 'yml'];
+
+test.each(format)('Check different file formats', (extension) => {
   const fileName1 = `${process.cwd()}/__fixtures__/file1.${extension}`;
   const fileName2 = `${process.cwd()}/__fixtures__/file2.${extension}`;
 
   expect(genDiff(fileName1, fileName2, 'stylish')).toEqual(stylish);
+  expect(genDiff(fileName1, fileName2, 'plain')).toEqual(plain);
   expect(genDiff(fileName1, fileName2)).toEqual(stylish);
 });
