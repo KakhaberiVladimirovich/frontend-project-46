@@ -16,8 +16,8 @@ const json = readFile('json.txt');
 const format = ['json', 'yaml', 'yml'];
 
 test.each(format)('Check different file formats', (extension) => {
-  const fileName1 = readFile(`file1.${extension}`);
-  const fileName2 = readFile(`file2.${extension}`);
+  const fileName1 = `${process.cwd()}/__fixtures__/file1.${extension}`;
+  const fileName2 = `${process.cwd()}/__fixtures__/file2.${extension}`;
 
   expect(genDiff(fileName1, fileName2, 'stylish')).toEqual(stylish);
   expect(genDiff(fileName1, fileName2, 'plain')).toEqual(plain);
