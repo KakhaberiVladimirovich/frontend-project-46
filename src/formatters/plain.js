@@ -7,7 +7,7 @@ const stringify = (value) => {
   return _.isString(value) ? `'${value}'` : String(value);
 };
 
-const formPlain = (tree) => {
+const formatPlain = (tree) => {
   const iter = (value, path) => {
     const result = value.filter(({ type }) => type !== 'unchanged').map((obj) => {
       const data = [...path, obj.name];
@@ -31,4 +31,4 @@ const formPlain = (tree) => {
   return iter(tree, []);
 };
 
-export default formPlain;
+export default formatPlain;
