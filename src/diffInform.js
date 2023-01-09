@@ -4,47 +4,42 @@ const buildTree = (data1, data2) => {
   const union = _.union(Object.keys(data1), Object.keys(data2));
   const sortedKeys = _.sortBy(union);
 
-  const getNewObj = sortedKeys.map((key) => {
-    const values1 = data1[key];
-    const values2 = data2[key];
-
+  return sortedKeys.map((key) => {
     if (!Object.hasOwn(data1, key)) {
       return {
         name: key,
         type: 'added',
-        value: values2,
+        value: data2[key],
       };
     }
     if (!Object.hasOwn(data2, key)) {
       return {
         name: key,
         type: 'deleted',
-        value: values1,
+        value: data1[key],
       };
     }
-    if (_.isObject(values1) && _.isObject(values2)) {
+    if (_.isPlainObject(data1[key]) && _.isPlainObject(data2[key])) {
       return {
         name: key,
         type: 'nested',
-        children: buildTree(values1, values2),
+        children: buildTree(data1[key], data2[key]),
       };
     }
-    if (values1 !== values2) {
+    if (!_.isEqual(data1[key], data2[key])) {
       return {
         name: key,
         type: 'changed',
-        value1: values1,
-        value2: values2,
+        value1: data1[key],
+        value2: data2[key],
       };
     }
     return {
       name: key,
       type: 'unchanged',
-      value: values1,
+      value: data1[key],
     };
   });
-
-  return getNewObj;
 };
 
 export default buildTree;
