@@ -1,23 +1,21 @@
 import _ from 'lodash';
 
-const getDiffInformation = (obj1, obj2) => {
-  const keys1 = Object.keys(obj1);
-  const keys2 = Object.keys(obj2);
-  const union = _.union(keys1, keys2);
-  const sortUnion = _.sortBy(union);
+const buildTree = (data1, data2) => {
+  const union = _.union(Object.keys(data1), Object.keys(data2));
+  const sortedKeys = _.sortBy(union);
 
-  const getNewObj = sortUnion.map((key) => {
-    const values1 = obj1[key];
-    const values2 = obj2[key];
+  const getNewObj = sortedKeys.map((key) => {
+    const values1 = data1[key];
+    const values2 = data2[key];
 
-    if (!Object.hasOwn(obj1, key)) {
+    if (!Object.hasOwn(data1, key)) {
       return {
         name: key,
         type: 'added',
         value: values2,
       };
     }
-    if (!Object.hasOwn(obj2, key)) {
+    if (!Object.hasOwn(data2, key)) {
       return {
         name: key,
         type: 'deleted',
@@ -28,7 +26,7 @@ const getDiffInformation = (obj1, obj2) => {
       return {
         name: key,
         type: 'nested',
-        children: getDiffInformation(values1, values2),
+        children: buildTree(values1, values2),
       };
     }
     if (values1 !== values2) {
@@ -49,4 +47,4 @@ const getDiffInformation = (obj1, obj2) => {
   return getNewObj;
 };
 
-export default getDiffInformation;
+export default buildTree;

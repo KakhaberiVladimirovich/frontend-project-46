@@ -17,7 +17,7 @@ const cases = [
   ['file1.json', 'file2.json', 'plain.txt', 'plain'],
 ];
 
-test.each(cases)('Compare %s and %s to expect %s in "%s" style', (firstArg, secondArg, expectedResult, format) => {
+test.each(cases)('Check different file formats', (firstArg, secondArg, expectedResult, format) => {
   const firstFile = getFixturePath(firstArg);
   const secondFile = getFixturePath(secondArg);
   const getResult = readFile(expectedResult);
