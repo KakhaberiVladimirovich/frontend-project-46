@@ -22,6 +22,8 @@ const stringify = (val, depth) => {
 
 const formatStylish = (tree, depth = 1) => {
   const items = tree.map((item) => {
+    const makeLine = (value, mark) => `${getIndent(depth, 1)}${mark} ${item.name}: ${stringify(value, depth, replacer)}`;
+
     switch (item.type) {
       case 'added':
         return `${getIndent(depth, 1)}+ ${item.name}: ${stringify(item.value, depth + 1)}`;
@@ -30,7 +32,8 @@ const formatStylish = (tree, depth = 1) => {
       case 'unchanged':
         return `${getIndent(depth, 1)}  ${item.name}: ${stringify(item.value, depth + 1)}`;
       case 'changed':
-        return `${getIndent(depth, 1)}- ${item.name}: ${stringify(item.value1, depth + 1)}\n${getIndent(depth, 1)}+ ${item.name}: ${stringify(item.value2, depth + 1)}`;
+        return [`${makeLine(item.value1, '-')}`,
+          `${makeLine(item.value2, '+')}`].join('\n');
       case 'nested':
         return `${getIndent(depth, 1)}  ${item.name}: ${formatStylish(item.children, depth + 1)}`;
       default:
