@@ -22,17 +22,19 @@ const stringify = (val, depth) => {
 
 const formatStylish = (tree, depth = 1) => {
   const items = tree.map((item) => {
+    const data1 = (singes) => `${getIndent(depth, 1)}${singes} ${item.name}: `;
+    const data2 = (itemValue) => stringify(itemValue, depth + 1);
     switch (item.type) {
       case 'added':
-        return `${getIndent(depth, 1)}+ ${item.name}: ${stringify(item.value, depth + 1)}`;
+        return `${data1('+')}${data2(item.value)}`;
       case 'deleted':
-        return `${getIndent(depth, 1)}- ${item.name}: ${stringify(item.value, depth + 1)}`;
+        return `${data1('-')}${data2(item.value)}`;
       case 'unchanged':
-        return `${getIndent(depth, 1)}  ${item.name}: ${stringify(item.value, depth + 1)}`;
+        return `${data1(' ')}${data2(item.value)}`;
       case 'changed':
-        return `${getIndent(depth, 1)}- ${item.name}: ${stringify(item.value1, depth + 1)}\n${getIndent(depth, 1)}+ ${item.name}: ${stringify(item.value2, depth + 1)}`;
+        return `${data1('-')}${data2(item.value1)}\n${data1('+')}${data2(item.value2)}`;
       case 'nested':
-        return `${getIndent(depth, 1)}  ${item.name}: ${formatStylish(item.children, depth + 1)}`;
+        return `${data1(' ')}${formatStylish(item.children, depth + 1)}`;
       default:
         throw new Error('Unknown type.');
     }
