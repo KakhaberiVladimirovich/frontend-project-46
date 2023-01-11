@@ -1,6 +1,6 @@
 import yaml from 'js-yaml';
 
-const parse = (format, data) => {
+const parse = (data, format) => {
   switch (format) {
     case 'json':
       return JSON.parse(data);

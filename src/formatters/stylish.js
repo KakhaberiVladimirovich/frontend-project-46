@@ -22,15 +22,13 @@ const stringify = (val, depth) => {
 
 const formatStylish = (tree, depth = 1) => {
   const items = tree.map((item) => {
-    const value = stringify(item.value, depth + 1);
-
     switch (item.type) {
       case 'added':
-        return `${getIndent(depth, 1)}+ ${item.name}: ${value}`;
+        return `${getIndent(depth, 1)}+ ${item.name}: ${stringify(item.value, depth + 1)}`;
       case 'deleted':
-        return `${getIndent(depth, 1)}- ${item.name}: ${value}`;
+        return `${getIndent(depth, 1)}- ${item.name}: ${stringify(item.value, depth + 1)}`;
       case 'unchanged':
-        return `${getIndent(depth, 1)}  ${item.name}: ${value}`;
+        return `${getIndent(depth, 1)}  ${item.name}: ${stringify(item.value, depth + 1)}`;
       case 'changed':
         return `${getIndent(depth, 1)}- ${item.name}: ${stringify(item.value1, depth + 1)}\n${getIndent(depth, 1)}+ ${item.name}: ${stringify(item.value2, depth + 1)}`;
       case 'nested':
