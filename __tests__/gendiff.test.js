@@ -17,9 +17,9 @@ const cases = [
   ['file1.json', 'file2.json', 'plain.txt', 'plain'],
 ];
 
-test.each(cases)('Check different file formats', (firstArg, secondArg, expectedResult, format) => {
-  const firstFile = getFixturePath(firstArg);
-  const secondFile = getFixturePath(secondArg);
+test.each(cases)('Check different file formats', (fileName1, fileName2, expectedResult, format) => {
+  const firstFile = getFixturePath(fileName1);
+  const secondFile = getFixturePath(fileName2);
   const getResult = readFile(expectedResult);
   const result = genDiff(firstFile, secondFile, format);
   expect(result).toEqual(getResult);
