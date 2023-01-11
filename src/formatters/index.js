@@ -1,10 +1,10 @@
-import formStylish from './stylish.js';
-import formPlain from './plain.js';
+import formatStylish from './stylish.js';
+import formatPlain from './plain.js';
 import formatJson from './json.js';
 
 const result = {
-  stylish: formStylish,
-  plain: formPlain,
+  stylish: formatStylish,
+  plain: formatPlain,
   json: formatJson,
 };
 

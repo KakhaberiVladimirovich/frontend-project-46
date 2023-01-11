@@ -22,7 +22,7 @@ const stringify = (val, depth) => {
   return ['{', ...result, `${closeBracket(depth)}}`].join('\n');
 };
 
-const formStylish = (tree, depth = 1) => {
+const formatStylish = (tree, depth = 1) => {
   const items = tree.map((item) => {
     const value = stringify(item.value, depth + 1);
 
@@ -36,7 +36,7 @@ const formStylish = (tree, depth = 1) => {
       case 'changed':
         return `${openBracket(depth)}- ${item.name}: ${stringify(item.value1, depth + 1)}\n${openBracket(depth)}+ ${item.name}: ${stringify(item.value2, depth + 1)}`;
       case 'nested':
-        return `${openBracket(depth)}  ${item.name}: ${formStylish(item.children, depth + 1)}`;
+        return `${openBracket(depth)}  ${item.name}: ${formatStylish(item.children, depth + 1)}`;
       default:
         throw new Error('Unknown type.');
     }
@@ -44,4 +44,4 @@ const formStylish = (tree, depth = 1) => {
   return ['{', ...items, `${closeBracket(depth)}}`].join('\n');
 };
 
-export default formStylish;
+export default formatStylish;
