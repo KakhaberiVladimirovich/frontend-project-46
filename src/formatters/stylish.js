@@ -22,7 +22,7 @@ const stringify = (val, depth) => {
 
 const formatStylish = (tree, depth = 1) => {
   const items = tree.map((item) => {
-    const makeLine = (value, mark) => `${getIndent(depth, 1)}${mark} ${item.name}: ${stringify(value, depth, replacer)}`;
+    const makeLine = (value, mark) => `${getIndent(depth, 1)}${mark} ${item.name}: ${stringify(value, depth + 1)}`;
 
     switch (item.type) {
       case 'added':
