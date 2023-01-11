@@ -5,27 +5,28 @@
 
 ## Вычислитель отличий
 
-<p>Вычислитель отличий – программа, определяющая разницу между двумя структурами данных. Это популярная задача, для решения которой существует множество онлайн сервисов, например <a </a><a href="http://www.jsondiff.com"></a> . Подобный механизм используется при выводе тестов или при автоматическом отслеживании изменении в конфигурационных файлах.</p>
+<p>Вычислитель отличий – программа, определяющая разницу между двумя структурами данных. Это популярная задача, для решения которой существует множество онлайн сервисов, например <a </a><a href="http://www.jsondiff.com/"></a> . Подобный механизм используется при выводе тестов или при автоматическом отслеживании изменении в конфигурационных файлах.</p>
 
 <h2><p>Возможности утилиты:</p></h2>
 
 <p>Поддержка разных входных форматов: yaml, json Генерация отчета в виде plain text, stylish и json</p>
 
-<ol>
-  <li>Установка
-    <ul>
-      <li>Установите Node.js последней версии в систему глобально (Установка JavaScript).</li>
-      <li>Склонируйте созданный репозиторий проекта локально.</li>
-      <li>Выполнить установку зависимостей (make install)</li>
-      <li>Запустить сравнение файлов (команды в описании)</li>
-    </ul>
-  </li>
-   <h2>Описание:</h2>
+## Установка:
+1. Установите [Node.js](https://nodejs.org/en/) не ниже 18.11.0: ```node -v```.
+2. Склонируйте созданный репозиторий проекта локально.
+3. Выполнить установку зависимостей ```make install```
 
-<p>Вычислить различия можно с помощью команды</p>
-<p>gendiff [options] pathToFile1 pathToFile2</p>
-<p>Options: -V, --version output the version number -f, --format [type] Output format -h, --help output usage information</p>
-<p>[type] - plain, json, nested - путь к json или yaml файлам</p>
+## Описание:
+Вы можете использовать проект как сценарий в терминале или как библиотеку в своем проекте JavaScript. Вы можете отформатировать разницу в трех стилях:  stylish (default), plain and json.
+```shell
+$ gendiff -h
+Usage: gendiff [options] <filepath1> <filepath2>
+Compares two configuration files and shows a difference.
+Options:
+  -V, --version          output the version number
+  -f, --format <type>    output format (choices: "stylish", "plain", "json", default: "stylish")
+  -h, --help             display help for command
+```
 
  
 
