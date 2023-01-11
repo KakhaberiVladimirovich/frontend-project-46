@@ -1,13 +1,16 @@
 import formatStylish from './stylish.js';
 import formatPlain from './plain.js';
-import formatJson from './json.js';
 
-const result = {
-  stylish: formatStylish,
-  plain: formatPlain,
-  json: formatJson,
+const getFormat = (innerTree, format) => {
+  switch (format) {
+    case 'stylish':
+      return formatStylish(innerTree);
+    case 'plain':
+      return formatPlain(innerTree);
+    case 'json':
+      return JSON.stringify(innerTree, null, ' '.repeat(2));
+    default:
+      throw new Error(`format not supported: ${format}`);
+  }
 };
-
-const format = (tree, formatName) => result[formatName](tree);
-
-export default format;
+export default getFormat;
