@@ -17,7 +17,7 @@ const stringify = (val, depth) => {
     return `${getIndent(depth, 1)}  ${key}: ${stringify(value, depth + 1)}`;
   });
 
-  return ['{', ...result, `${getIndent(depth, spacesCount)(depth)}}`].join('\n');
+  return ['{', ...result, `${getIndent(depth, spacesCount)}}`].join('\n');
 };
 
 const formatStylish = (tree, depth = 1) => {
@@ -39,7 +39,7 @@ const formatStylish = (tree, depth = 1) => {
         throw new Error('Unknown type.');
     }
   });
-  return ['{', ...items, `${getIndent(depth, spacesCount)(depth)}}`].join('\n');
+  return ['{', ...items, `${getIndent(depth, spacesCount)}}`].join('\n');
 };
 
 export default formatStylish;
