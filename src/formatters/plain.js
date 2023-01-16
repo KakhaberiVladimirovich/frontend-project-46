@@ -24,12 +24,12 @@ const formatPlain = (tree) => {
           case 'nested':
             return iter(obj.children, data);
           case 'unchanged':
-            return '';
+            return null;
           default:
             throw new Error('Unknown type');
         }
       })
-      .filter((val) => val !== '');
+      .filter((val) => val !== null);
     return result.join('\n');
   };
   return iter(tree, []);
